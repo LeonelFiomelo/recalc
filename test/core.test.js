@@ -19,3 +19,13 @@ describe('Pow', () => {
         expect(core.pow(4, 6)).toBe(4096);
     })
 })
+
+describe('Divide', () => {
+    test('Debería 8 / 2 = 4', () => {
+        expect(core.div(8, 2)).toBe(4);
+    })
+
+    test('Debería 2 / 0 = No se puede dividir entre cero', () => {
+        expect(core.div(2, 0)).toBe("No se puede dividir entre cero");
+    })
+})
