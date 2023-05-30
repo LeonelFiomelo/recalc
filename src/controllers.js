@@ -42,7 +42,7 @@ router.get("/div/:a/:b", async function (req, res) {
     if (isNaN(a) || isNaN(b)) {
         res.status(400).send('Uno de los parámetros no es un número');
     } else if (b == 0) {
-        res.status(400).send('No se puede dividir entre 0');
+        res.status(400).json({ error: 'No se puede dividir entre 0' });
     } else {
         const result = core.div(a, b);
         await createHistoryEntry({ firstArg: a, secondArg: b, operationName: "DIV", result: result })
