@@ -54,6 +54,27 @@ describe("History", () => {
         expect(histories[0].Operation.name).toEqual("MUL")
     })
 
+    test("Debería poder crear una división en el history", async () => {
+        await createHistoryEntry({
+            firstArg: 10,
+            secondArg: 2,
+            result: 5,
+            error: null,
+            operationName: "DIV"
+        })
+
+        const histories = await History.findAll({
+            include: [Operation]
+        })
+
+        expect(histories.length).toEqual(1)
+        expect(histories[0].firstArg).toEqual(10)
+        expect(histories[0].secondArg).toEqual(2)
+        expect(histories[0].result).toEqual(5)
+        expect(histories[0].error).toBeNull()
+        expect(histories[0].Operation.name).toEqual("DIV")
+    })
+
     test("Debería poder guardar información de error en el history", async () => {
         const entry = {
             firstArg: 5,
