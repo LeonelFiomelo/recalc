@@ -62,3 +62,16 @@ describe("API divide", () => {
             });
     });
 })
+
+describe("API pow", () => {
+    test("Debería devolver un mensaje de error y status 400 si uno de los parámetros no es un número", async () => {
+        const app = await api.build();
+        return request(app)
+            .get("/api/v1/pow/2/notANumber")
+            .expect(400)
+            .expect("Content-Type", "application/json; charset=utf-8")
+            .then((res) => {
+                expect(res.body.error).toEqual("Uno de los parámetros no es un número");  
+            });
+        });
+    });
