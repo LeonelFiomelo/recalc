@@ -3,6 +3,7 @@ const {
     createHistoryEntry,
     History,
     Operation,
+    deleteAllHistory,
     getHistory
 } = require('../src/models.js')
 
@@ -128,4 +129,14 @@ describe("History", () => {
         expect(history[1].error).toEqual(historyEntry2.error);
         expect(history[1].Operation.name).toEqual(historyEntry2.operationName);
     });
+
+    test("Debería poder eliminar todo el historial", async () => {
+        // Realizar la llamada a la función para eliminar el historial
+        await deleteAllHistory();
+  
+        // Verificar que no haya ningún registro en la tabla History
+        const histories = await History.findAll();
+        expect(histories.length).toEqual(0);
+    });
+  
 })

@@ -65,3 +65,12 @@ export async function getHistory() {
       include: [Operation],
     });
   }
+
+export async function deleteAllHistory() {
+    try {
+      await History.destroy({ truncate: true });
+      console.log('Se eliminó todo el historial exitosamente.');
+    } catch (error) {
+      console.error('Error al eliminar el historial:', error);
+    }
+  }
