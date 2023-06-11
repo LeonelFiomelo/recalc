@@ -41,12 +41,16 @@ router.get("/div/:a/:b", async function (req, res) {
     const b = Number(params.b);
 
     if (isNaN(a) || isNaN(b)) {
-        res.status(400).send('Uno de los parámetros no es un número');
+        const error = 'Uno de los parámetros no es un número';
+        await createHistoryEntry({ firstArg: a, secondArg: b, operationName: "DIV", error });
+        return res.status(400).send(error);
     } else if (b == 0) {
-        res.status(400).json({ error: 'No se puede dividir entre 0' });
+        const error = 'No se puede dividir entre 0';
+        await createHistoryEntry({ firstArg: a, secondArg: b, operationName: "DIV", error });
+        return res.status(400).json({ error });
     } else {
         const result = core.div(a, b);
-        await createHistoryEntry({ firstArg: a, secondArg: b, operationName: "DIV", result: result })
+        await createHistoryEntry({ firstArg: a, secondArg: b, operationName: "DIV", result });
         return res.send({ result });
     }
 });

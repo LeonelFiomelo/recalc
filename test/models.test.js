@@ -98,6 +98,29 @@ describe("History", () => {
         expect(histories[0].error).toEqual("División por cero");
     })
 
+    test("Debería poder guardar información de error en el history de la division", async () => {
+        const entry = {
+            firstArg: 5,
+            secondArg: "a",
+            result: null,
+            operationName: "DIV",
+            error: "Uno de los parámetros no es un número"
+        };
+
+        await createHistoryEntry(entry);
+
+        const histories = await History.findAll({
+            include: [Operation]
+        });
+
+        expect(histories.length).toEqual(1);
+        expect(histories[0].firstArg).toEqual(5);
+        expect(histories[0].secondArg).toEqual("a");
+        expect(histories[0].result).toBeNull();
+        expect(histories[0].Operation.name).toEqual("DIV");
+        expect(histories[0].error).toEqual("Uno de los parámetros no es un número");
+    })
+
     test("Debería obtener todo el historial desde la base de datos", async () => {
         const historyEntry1 = {
             firstArg: 2,
