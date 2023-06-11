@@ -131,10 +131,21 @@ describe("History", () => {
     });
 
     test("Debería poder eliminar todo el historial", async () => {
-        // Realizar la llamada a la función para eliminar el historial
+        await createHistoryEntry({
+            firstArg: 5,
+            secondArg: 5,
+            result: 25,
+            error: null,
+            operationName: "MUL"
+        })
+        await createHistoryEntry({
+            firstArg: 10,
+            secondArg: 2,
+            result: 5,
+            error: null,
+            operationName: "DIV"
+        })
         await deleteAllHistory();
-  
-        // Verificar que no haya ningún registro en la tabla History
         const histories = await History.findAll();
         expect(histories.length).toEqual(0);
     });
