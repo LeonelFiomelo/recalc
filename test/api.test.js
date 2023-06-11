@@ -32,6 +32,18 @@ describe("API add", () => {
                 expect(res.body.result).toBeLessThan(5);
             });
     });
+    test("Debería responder con un 200 OK", async () => {
+        const app = await api.build();
+
+        return request(app)
+            .get('/api/v1/add/0.1/0.2')
+            .expect(200)
+            .expect('Content-Type', "application/json; charset=utf-8")
+            .then((res) => {
+                const resultado = parseFloat(res.body.result.toFixed(1));
+                expect(resultado).toEqual(0.3);
+            });
+    });
 });
 
 describe("API multiply", () => {
