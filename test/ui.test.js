@@ -81,4 +81,36 @@ test.describe('test', () => {
     expect(historyEntry.secondArg).toEqual(2)
     expect(historyEntry.result).toEqual(50)
   });
+
+  test('Deberia poder realizar una mutiplicacion', async ({ page }) => {
+    await page.goto('./');
+
+    await page.getByRole('button', { name: '2' }).click()
+    await page.getByRole('button', { name: '*' }).click()
+    await page.getByRole('button', { name: '3' }).click()
+
+    const [response] = await Promise.all([
+      page.waitForResponse((r) => r.url().includes('/api/v1/multiply/')),
+      page.getByRole('button', { name: '=' }).click()
+    ]);
+
+    const { result } = await response.json();
+    expect(result).toBe(6);
+
+    await expect(page.getByTestId('display')).toHaveValue(/6/)
+
+    const operation = await Operation.findOne({
+      where: {
+        name: "MUL"
+      }
+    });
+
+    const historyEntry = await History.findOne({
+      where: { OperationId: operation.id }
+    })
+
+    expect(historyEntry.firstArg).toEqual(2)
+    expect(historyEntry.secondArg).toEqual(3)
+    expect(historyEntry.result).toEqual(6)
+  });
 })
