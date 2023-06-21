@@ -11,7 +11,7 @@ function multiply(a, b) {
 }
 
 function divide(a, b) {
-    return b == 0 ? "No se puede dividir entre cero" : a / b;
+    return b === 0 ? "No se puede dividir entre cero" : a / b;
 }
 
 function pow(a, b) {
