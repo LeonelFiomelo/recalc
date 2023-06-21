@@ -44,15 +44,14 @@ router.get("/div/:a/:b", async function (req, res) {
         const error = 'Uno de los parámetros no es un número';
         await createHistoryEntry({ firstArg: a, secondArg: b, operationName: "DIV", error });
         return res.status(400).send(error);
-    } else if (b == 0) {
+    } else if (b === 0) {
         const error = 'No se puede dividir entre 0';
         await createHistoryEntry({ firstArg: a, secondArg: b, operationName: "DIV", error });
         return res.status(400).json({ error });
-    } else {
-        const result = core.div(a, b);
-        await createHistoryEntry({ firstArg: a, secondArg: b, operationName: "DIV", result });
-        return res.send({ result });
     }
+    const result = core.div(a, b);
+    await createHistoryEntry({ firstArg: a, secondArg: b, operationName: "DIV", result });
+    return res.send({ result });
 });
 
 router.get("/add/:a/:b", async function (req, res) {
@@ -64,12 +63,10 @@ router.get("/add/:a/:b", async function (req, res) {
         const error = 'Uno de los parámetros no es un número';
         await createHistoryEntry({ firstArg: a, secondArg: b, operationName: "ADD", error })
         return res.status(400).send(error);
-    } else {
-        const result = core.add(a, b);
-
-        await createHistoryEntry({ firstArg: a, secondArg: b, operationName: "ADD", result: result })
-        return res.send({ result });
     }
+    const result = core.add(a, b);
+    await createHistoryEntry({ firstArg: a, secondArg: b, operationName: "ADD", result: result })
+    return res.send({ result });
 });
 
 router.get("/multiply/:a/:b", async function (req, res) {
