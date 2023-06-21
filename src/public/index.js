@@ -1,7 +1,7 @@
 const $display = document.querySelector('.display')
 const $buttons = document.querySelector('.buttons')
 
-const operations = ['-', '+','*'];
+const operations = ['-', '+', '*', '/'];
 
 let currentDisplay = "";
 let operation = null;
@@ -27,6 +27,10 @@ $buttons.addEventListener('click', async (e) => {
 
         if (operation === "*") {
             result = await calculateMul(firstArg, secondArg)
+        }
+
+        if (operation === "/") {
+            result = await calculateDiv(firstArg, secondArg)
         }
 
         reset = true;
@@ -64,6 +68,17 @@ async function calculateMul(firstArg, secondArg) {
     const resp = await fetch(`/api/v1/multiply/${firstArg}/${secondArg}`)
     const { result } = await resp.json();
 
+    return result;
+}
+
+async function calculateDiv(firstArg, secondArg) {
+    if (secondArg === '0') {
+      return "Error: División por cero";
+    }
+  
+    const resp = await fetch(`/api/v1/div/${firstArg}/${secondArg}`)
+    const { result } = await resp.json();
+  
     return result;
 }
 
