@@ -7,6 +7,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.4.1] 21-06-2023
+
+### Fixed
+
+- Suma en la interfaz
+- Multiplicacion en la interfaz
+- Division en la interfaz
+- Potencia en la interfaz
+
+## Added
+
+- Boton de potencia
+
 ## [1.3.2] 08-06-2023
 
 ### Fixed
