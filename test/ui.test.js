@@ -195,6 +195,18 @@ test.describe('test', () => {
     await expect(page.getByTestId('display')).toHaveValue("Error: Número mayor a 100000")
 
   });
+
+  test('Debería generar un error al hacer una division por cero', async ({ page }) => {
+    await page.goto('./');
+  
+    await page.getByRole('button', { name: '3' }).click();
+    await page.getByRole('button', { name: '/' }).click();
+    await page.getByRole('button', { name: '0' }).click();
+    await page.getByRole('button', { name: '=' }).click()
+  
+    await expect(page.getByTestId('display')).toHaveValue("Error: División por cero")
+
+  });
   
   
 })
