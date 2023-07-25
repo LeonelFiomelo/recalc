@@ -177,4 +177,36 @@ test.describe('test', () => {
     expect(historyEntry.secondArg).toEqual(3)
     expect(historyEntry.result).toEqual(125)
   });
+
+  test('Debería generar un error al hacer una potencia mayor a 100000', async ({ page }) => {
+    await page.goto('./');
+  
+    await page.getByRole('button', { name: '2' }).click();
+    await page.getByRole('button', { name: '^' }).click();
+    await page.getByRole('button', { name: '1' }).click();
+    await page.getByRole('button', { name: '0' }).click();
+    await page.getByRole('button', { name: '0' }).click();
+    await page.getByRole('button', { name: '0' }).click();
+    await page.getByRole('button', { name: '0' }).click();
+    await page.getByRole('button', { name: '0' }).click();
+    await page.getByRole('button', { name: '1' }).click();
+    await page.getByRole('button', { name: '=' }).click()
+  
+    await expect(page.getByTestId('display')).toHaveValue("Error: Número mayor a 100000")
+
+  });
+
+  test('Debería generar un error al hacer una division por cero', async ({ page }) => {
+    await page.goto('./');
+  
+    await page.getByRole('button', { name: '3' }).click();
+    await page.getByRole('button', { name: '/' }).click();
+    await page.getByRole('button', { name: '0' }).click();
+    await page.getByRole('button', { name: '=' }).click()
+  
+    await expect(page.getByTestId('display')).toHaveValue("Error: División por cero")
+
+  });
+  
+  
 })
